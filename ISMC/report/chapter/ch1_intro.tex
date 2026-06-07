@@ -1,0 +1,63 @@
+\chapter{Introduction}
+
+\section{Background}
+Digital communication systems are widely used in modern monitoring and control applications 
+where sensor data must be transmitted reliably from a sensing node to a receiver. 
+In industrial environments, sensors are commonly deployed to monitor parameters 
+such as temperature, \\vibration, pressure, gas concentration, flow rate, and machine health. 
+These measurements are often converted into binary form and sent through a communication link for further processing, logging, or control action.
+
+In this project, the selected application theme is 
+\textbf{\textit{Industrial Sensor Monitoring \\Communication}}. 
+In such a scenario, an industrial sensor node generates binary information and transmits it wirelessly to a nearby receiver. 
+Because practical transmission channels are affected by \\attenuation, distortion, and noise, the received signal may differ from the transmitted signal. 
+Hence, proper modulation and receiver design are essential for reliable data recovery.
+
+Binary Phase Shift Keying (BPSK) is one of the simplest and most reliable digital modulation techniques for binary data transmission. 
+In BPSK, bit `1` and bit `0` are represented by two antipodal carrier waveforms having a phase difference of \(180^\circ\). 
+Due to its simple structure and strong noise tolerance, 
+BPSK is widely used as a basic model for understanding digital communication theory.
+
+The present work studies a complete BPSK communication chain using mathematical analysis and Python simulation. 
+The work includes waveform generation, energy calculation, Fourier-domain analysis, bandwidth estimation, channel modeling, correlator detection, FIR matched filter implementation, BER simulation, and Shannon-capacity interpretation. 
+Since assigned a mild low-pass channel followed by AWGN and both receiver types, this report gives special attention to channel distortion and detector comparison.
+
+\section{Project Objective}
+The main objective of this project is to develop a complete BPSK-based communication link in Python for the assigned industrial monitoring scenario 
+and to analyse its performance using the mathematical concepts covered in the course.
+
+The specific objectives of this project are listed below:
+\begin{enumerate}[label=\arabic*.]
+    \item To generate the BPSK symbols corresponding to binary `1` and binary `0` using the \\assigned carrier frequency, bit rate, and sampling frequency.
+    \item To compute the bit duration, samples per bit, and energy per bit, and to compare numerical and theoretical energy values.
+    \item To generate and visualize the transmitted 10-bit BPSK waveform for the prescribed test bit sequence.
+    \item To analyse the FFT spectrum, power spectral density, bandwidth, and Parseval relation of the generated signal.
+    \item To model the assigned transmission channel, namely a mild low-pass channel followed by additive white Gaussian noise.
+    \item To implement and compare both a correlator receiver and an FIR matched filter receiver.
+    \item To perform Monte Carlo BER simulation and compare simulated BER with the theoretical BER expression of BPSK.
+    \item To compute Shannon channel capacity and discuss the gap between uncoded BPSK \\performance and the Shannon limit.
+\end{enumerate}
+
+\section{Course Outcome Coverage}
+
+\begin{table}[H]
+\centering
+\caption{CO-wise project coverage}
+\begin{tabular}{|c|p{0.75\linewidth}|}
+\hline
+\textbf{CO} & \textbf{Project Component} \\
+\hline
+CO1 & BPSK signal representation, sinusoidal modeling, antipodal signaling, and energy-per-bit calculation. \\
+\hline
+CO2 & Fourier spectrum analysis, power spectral density estimation, bandwidth calculation, and Parseval verification. \\
+\hline
+CO3 & Mild low-pass channel modeling, AWGN inclusion, convolution, and correlator receiver design. \\
+\hline
+CO4 & Sampled-signal processing, FIR matched filter design, stability discussion, and discrete-time interpretation using Z-transform ideas. \\
+\hline
+CO5 & Q-function based theoretical BER, random-bit generation, Monte Carlo BER simulation, and practical detector validation. \\
+\hline
+CO6 & Shannon capacity calculation, spectral-efficiency discussion, and comparison between practical uncoded BPSK and the Shannon limit. \\
+\hline
+\end{tabular}
+\end{table}

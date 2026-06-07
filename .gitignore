@@ -1,0 +1,25 @@
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Compiled PDF (optional, uncomment if you want to ignore)
+*.pdf
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Backup/temp files
+*.bak
+*.tmp

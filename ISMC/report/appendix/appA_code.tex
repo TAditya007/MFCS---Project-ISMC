@@ -1,0 +1,184 @@
+\chapter{Complete Python Code}
+
+\begin{lstlisting}[language=Python,
+    caption={Complete Python implementation for Batch 9 BPSK system},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    showstringspaces=false]
+import numpy as np
+import matplotlib.pyplot as plt
+
+from scipy.signal import lfilter
+from scipy.special import erfc
+
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
+np.random.seed(42)
+
+A = 1.0
+fc = 15e3
+Rb = 1e3
+fs = 200e3
+bits_plot = np.array([1, 0, 1, 1, 0, 0, 1, 0, 1, 0])
+h = np.array([0.2, 0.6, 0.2])
+n_bits = 10**5
+EbN0_dB_range = np.array([2, 4, 6, 8, 10, 12, 14])
+
+# ============================================================
+# PART A - BPSK SYMBOL GENERATION
+# ============================================================
+
+Tb = 1 / Rb
+N = int(fs / Rb)
+t = np.arange(0, Tb, 1 / fs)
+
+s1 = A * np.cos(2 * np.pi * fc * t)
+s0 = -A * np.cos(2 * np.pi * fc * t)
+
+Eb_num = np.sum(s1**2) / fs
+Eb_theory = (A**2 * Tb) / 2
+
+print("Numerical Eb:", Eb_num)
+print("Theoretical Eb:", Eb_theory)
+
+# 10-bit waveform generation
+waveform = np.array([])
+
+for bit in bits_plot:
+    waveform = np.concatenate((waveform, s1 if bit == 1 else s0))
+
+time_axis = np.arange(len(waveform)) / fs
+
+# ============================================================
+# PART B - FFT, PSD, AND PARSEVAL
+# ============================================================
+X = np.fft.fft(waveform)
+X_shift = np.fft.fftshift(X)
+
+freq = np.fft.fftfreq(len(waveform), d=1 / fs)
+freq_shift = np.fft.fftshift(freq)
+
+PSD = (np.abs(X_shift) ** 2) / len(waveform)
+
+f_lower_null = fc - Rb
+f_upper_null = fc + Rb
+
+BW = 2 * Rb
+
+E_time = np.sum(waveform**2) / fs
+L = len(waveform)
+
+E_freq = (1 / fs) * (1 / L) * np.sum(np.abs(X) ** 2)
+parseval_error = abs((E_time - E_freq) / E_time) * 100
+
+print("Lower first null:", f_lower_null)
+print("Upper first null:", f_upper_null)
+print("Null-to-null bandwidth:", BW)
+print("Parseval error (%):", parseval_error)
+
+# ============================================================
+# PART C - CHANNEL + CORRELATOR RECEIVER
+# ============================================================
+EbN0_dB_test = 6
+EbN0_lin_test = 10 ** (EbN0_dB_test / 10)
+N0_test = Eb_theory / EbN0_lin_test
+sigma2_test = N0_test * fs / (2 * Rb)
+sigma_test = np.sqrt(sigma2_test)
+
+tx_filtered = lfilter(h, 1, waveform)
+noise = sigma_test * np.random.randn(len(tx_filtered))
+rx = tx_filtered + noise
+
+def correlator_receiver(rx_signal, ref_signal, N):
+    detected_bits = []
+    correlator_outputs = []
+    for i in range(0, len(rx_signal), N):
+        segment = rx_signal[i:i + N]
+        if len(segment) == N:
+            y = np.sum(segment * ref_signal)
+            correlator_outputs.append(y)
+            detected_bits.append(1 if y >= 0 else 0)
+    return np.array(detected_bits), np.array(correlator_outputs)
+
+detected_corr, y_corr = correlator_receiver(rx, s1, N)
+bit_errors_corr = np.sum(bits_plot != detected_corr)
+
+print("Transmitted bits:", bits_plot)
+print("Detected bits (Correlator):", detected_corr)
+print("Bit errors (Correlator):", bit_errors_corr)
+
+# ============================================================
+# PART D - MATCHED FILTER RECEIVER
+# ============================================================
+h_mf = s1[::-1]
+mf_output = lfilter(h_mf, 1, rx)
+
+sample_indices = np.arange(N - 1, len(mf_output), N)
+mf_samples = mf_output[sample_indices]
+detected_mf = (mf_samples >= 0).astype(int)
+bit_errors_mf = np.sum(bits_plot != detected_mf[:len(bits_plot)])
+
+print("Detected bits (Matched Filter):", detected_mf[:len(bits_plot)])
+print("Bit errors (Matched Filter):", bit_errors_mf)
+
+same_decisions = np.array_equal(detected_corr,
+ detected_mf[:len(detected_corr)])
+print("Correlator and matched filter equal:", same_decisions)
+
+# ============================================================
+# PART E - BER SIMULATION
+# ============================================================
+bits = np.random.randint(0, 2, n_bits)
+symbols = 2 * bits - 1
+tx_baseband = np.repeat(symbols, N)
+ref_baseband = np.ones(N)
+
+BER_sim = []
+BER_theory = []
+
+for EbN0_dB in EbN0_dB_range:
+    EbN0_lin = 10 ** (EbN0_dB / 10)
+    sigma2 = N / (2 * EbN0_lin)
+    sigma = np.sqrt(sigma2)
+
+    tx_ch = lfilter(h, 1, tx_baseband)
+    rx_bb = tx_ch + sigma * np.random.randn(len(tx_ch))
+
+    detected_bits = np.zeros(n_bits, dtype=int)
+    for i in range(n_bits):
+        seg = rx_bb[i * N:(i + 1) * N]
+        y = np.sum(seg * ref_baseband)
+        detected_bits[i] = 1 if y >= 0 else 0
+
+    errors = np.sum(bits != detected_bits)
+    BER_sim.append(errors / n_bits)
+    BER_theory.append(0.5 * erfc(np.sqrt(EbN0_lin)))
+
+BER_sim = np.array(BER_sim)
+BER_theory = np.array(BER_theory)
+
+print("Eb/N0 dB values:", EbN0_dB_range)
+print("Simulated BER:", BER_sim)
+print("Theoretical BER:", BER_theory)
+
+# ============================================================
+# PART F - SHANNON CAPACITY
+# ============================================================
+B = 2 * Rb
+SNR_dB = np.arange(0, 21, 2)
+SNR_lin = 10 ** (SNR_dB / 10)
+C = B * np.log2(1 + SNR_lin)
+
+snr_mark = 10
+snr_mark_lin = 10 ** (snr_mark / 10)
+C_mark = B * np.log2(1 + snr_mark_lin)
+
+EbN0_req = 9.6
+EbN0_shannon = 1.59
+gap = EbN0_req - EbN0_shannon
+
+print("Capacity at 10 dB SNR:", C_mark)
+print("Gap to Shannon limit:", gap)
+\end{lstlisting}

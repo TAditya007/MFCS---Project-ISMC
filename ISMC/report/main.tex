@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper]{report}
+
+% -------------------------------------------------
+% Packages
+% -------------------------------------------------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage[normalem]{ulem}
+\usepackage{listings}
+\usetikzlibrary{calc}
+\usepackage[hidelinks]{hyperref}
+
+% -------------------------------------------------
+% Formatting
+% -------------------------------------------------
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+\hypersetup{
+    colorlinks=false,
+    pdftitle={IndustrialSensorMonitoring Communication},
+    pdfauthor={KLH University},
+    pdfsubject={Project Report},
+    pdfkeywords={BPSK, industrial monitoring, Python, communication system}
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Mathematics for Communication Systems}
+\fancyhead[R]{25MT1307E}
+\fancyfoot[L]{Batch 9}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\headheight}{14.5pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[L]{Mathematics for Communication Systems}
+  \fancyhead[R]{25MT1307E}
+  \fancyfoot[R]{Batch 9}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+\titleformat{\chapter}[display]
+  {\bfseries\Large}
+  {\chaptername\ \thechapter}{10pt}{\Large}
+
+% -------------------------------------------------
+% Listings style
+% -------------------------------------------------
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    stringstyle=\color{red!60!black},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    showstringspaces=false,
+    frame=single,
+    tabsize=4,
+    captionpos=b
+}
+\lstset{style=pythonstyle}
+
+% -------------------------------------------------
+% Document
+% -------------------------------------------------
+\begin{document}
+
+\pagenumbering{roman}
+
+% Front matter
+\input{frontmatter/titlepage}
+\clearpage
+\input{frontmatter/certificate}
+\clearpage
+\input{frontmatter/declaration}
+\clearpage
+\input{frontmatter/acknowledgement}
+\clearpage
+\input{frontmatter/abstract}
+\clearpage
+\input{frontmatter/keywords}
+\clearpage
+
+% Tables and lists
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+
+% Chapters
+\input{chapter/ch1_intro}
+\input{chapter/ch2_parameters}
+\input{chapter/ch3_bpsk_energy}
+\input{chapter/ch4_waveform}
+\input{chapter/ch5_spectrum}
+\input{chapter/ch6_channel_receiver}
+\input{chapter/ch7_matched_filter}
+\input{chapter/ch8_ber}
+\input{chapter/ch9_capacity}
+\input{chapter/ch10_conclusion}
+
+% Appendices
+\appendix
+\input{appendix/appA_code}
+\input{appendix/appB_plots}
+
+% Bibliography
+\begin{thebibliography}{9}
+
+\bibitem{ref1}
+S. Haykin and M. Moher, \textit{Communication Systems}, 4th ed. Wiley, 2009.
+
+\bibitem{ref2}
+A. V. Oppenheim and A. V. Willsky, \textit{Signals and Systems}, 2nd ed. Pearson, 1997.
+
+\bibitem{ref3}
+A. V. Oppenheim and R. V. Schafer, \textit{Discrete-Time Signal Processing}, 3rd ed. Pearson, 2009.
+
+\bibitem{ref4}
+T. M. Cover and J. A. Thomas, \textit{Elements of Information Theory}, 2nd ed. Wiley, 2006.
+
+\end{thebibliography}
+
+\clearpage
+\chapter*{Project Repository}
+\addcontentsline{toc}{chapter}{Project Repository}
+
+The complete source code, report files, and project resources are available in the following GitHub repository:
+
+\href{https://github.com/TAditya007/MFCS---Project-ISMC}{GitHub Repository: MFCS---Project-ISMC}
+
+\clearpage
+\chapter*{Project File Structure}
+\addcontentsline{toc}{chapter}{Project File Structure}
+
+The following structure represents the overall organization of the project.
+
+\begin{verbatim}
+PROJECT/
+|-- ISMC/
+|   |-- __pycache__/
+|   |-- core/
+|   |   |-- __pycache__/
+|   |   |-- ber.py
+|   |   |-- bpsk.py
+|   |   |-- capacity.py
+|   |   |-- channel.py
+|   |   `-- spectrum.py
+|   |-- plots/
+|   |   |-- 10-bit_wave.png
+|   |   |-- ber.png
+|   |   |-- bpsk.png
+|   |   |-- fir_impulse_response.png
+|   |   |-- frequency_response_matched_filter.png
+|   |   |-- magnitude_spectrum_of_bpsk.png
+|   |   |-- matched_filter_output.png
+|   |   |-- power_spectral_density_bpsk.png
+|   |   |-- received_wave.png
+|   |   |-- shannon_capacity_vs_snr.png
+|   |   `-- transmitted_bpsk.png
+|   |-- report/
+|   |-- config.py
+|   |-- main.py
+|   `-- .gitignore
+`-- 
+\end{verbatim}
+
+\clearpage
+\chapter*{Report File Structure}
+\addcontentsline{toc}{chapter}{Report File Structure}
+
+The following structure shows the internal organization of the LaTeX report files.
+
+\begin{verbatim}
+report/
+|-- appendix/
+|   |-- appA_code.tex
+|   `-- appB_plots.tex
+|-- assets/
+|   `-- logo.jpg
+|-- chapter/
+|   |-- ch1_intro.tex
+|   |-- ch2_parameters.tex
+|   |-- ch3_bpsk_energy.tex
+|   |-- ch4_waveform.tex
+|   |-- ch5_spectrum.tex
+|   |-- ch6_channel_receiver.tex
+|   |-- ch7_matched_filter.tex
+|   |-- ch8_ber.tex
+|   |-- ch9_capacity.tex
+|   `-- ch10_conclusion.tex
+|-- frontmatter/
+|   |-- abstract.tex
+|   |-- acknowledgement.tex
+|   |-- certificate.tex
+|   |-- declaration.tex
+|   |-- keywords.tex
+|   `-- titlepage.tex
+|-- plots/
+|   |-- 10-bit_wave.png
+|   |-- ber.png
+|   |-- bpsk.png
+|   |-- fir_impulse_response.png
+|   |-- frequency_response_matched_filter.png
+|   |-- magnitude_spectrum_of_bpsk.png
+|   |-- matched_filter_output.png
+|   |-- power_spectral_density_bpsk.png
+|   |-- received_wave.png
+|   |-- shannon_capacity_vs_snr.png
+|   `-- transmitted_bpsk.png
+|-- main.aux
+|-- main.lof
+|-- main.log
+|-- main.lot
+|-- main.out
+|-- main.pdf
+|-- main.synctex.gz
+|-- main.tex
+`-- main.toc
+\end{verbatim}
+
+\end{document}

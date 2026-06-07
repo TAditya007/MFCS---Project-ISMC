@@ -1,0 +1,14 @@
+\chapter{Conclusion}
+
+This project implemented a complete BPSK communication link in Python for a reliable sensor data transmission case study. 
+The work covered signal generation, energy calculation, spectrum and bandwidth analysis, channel modeling, receiver design, 
+matched filtering, BER simulation, and Shannon capacity evaluation.
+
+The results showed that BPSK is a simple and reliable modulation method for binary data \\transmission. 
+The FFT and PSD analysis confirmed the expected spectral behavior, and the BER curve matched the theoretical trend 
+as \(E_b/N_0\) increased. The receiver section also showed that the correlator and FIR matched filter are equivalent for 
+BPSK detection when implemented with the same reference pulse.
+
+The Shannon capacity analysis highlighted the effect of bandwidth and SNR on the maximum achievable data rate. 
+The calculated performance gap between practical uncoded BPSK and the Shannon limit showed why coding techniques are important in real systems. 
+Overall, this project connected the mathematical ideas from signals and systems, probability, and information theory with a practical communication system implemented in Python.

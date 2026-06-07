@@ -1,0 +1,97 @@
+\chapter{Assigned Batch Parameters}
+
+\section{Application Scenario}
+This project considers an industrial sensor monitoring communication system in which a \\remote sensor node measures process variables 
+such as temperature, vibration, pressure, or \\machine health condition and transmits the data wirelessly to a nearby monitoring receiver. 
+The transmitted information is represented in binary form and modulated using Binary Phase Shift Keying (BPSK), 
+which is selected because of its simple implementation and reliable \\performance in noisy environments.
+
+For our batch, the communication channel is modeled as a mild low-pass channel followed by additive white Gaussian noise (AWGN). 
+At the receiver side, both the correlator receiver and the FIR matched filter receiver are implemented and compared in order 
+to study their detection performance under the assigned channel condition.
+
+\section{Numerical Specifications}
+The batch-specific numerical parameters assigned for this project are listed in Table~\ref{tab:batch9params}. 
+These values are used throughout the Python implementation, simulation, and analysis.
+
+\begin{table}[H]
+\centering
+\caption{Assigned numerical parameters}
+\label{tab:batch9params}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Parameter} & \textbf{Assigned Value} \\
+\hline
+Application theme & Industrial Sensor Monitoring Communication \\
+\hline
+Carrier frequency, \(f_c\) & 15 kHz \\
+\hline
+Bit rate, \(R_b\) & 1 kbps \\
+\hline
+Bit duration, \(T_b = 1/R_b\) & 1 ms \\
+\hline
+Sampling frequency, \(f_s\) & 200 kHz \\
+\hline
+Samples per bit, \(N = f_s/R_b\) & 200 \\
+\hline
+Signal amplitude, \(A\) & 1 V \\
+\hline
+Number of bits for BER simulation & \(10^5\) \\
+\hline
+\(E_b/N_0\) range & 2 dB to 14 dB \\
+\hline
+Channel type & Mild LPF + AWGN \\
+\hline
+Low-pass channel impulse response & \(h[n] = [0.2,\;0.6,\;0.2]\) \\
+\hline
+Receiver type & Both correlator and FIR matched filter \\
+\hline
+Decision threshold & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Derived Quantities}
+From the assigned numerical values, a few important derived quantities are calculated and used in later chapters. 
+These quantities help in waveform generation, spectrum analysis, and receiver implementation.
+
+The bit duration is
+\[
+T_b = \frac{1}{R_b} = \frac{1}{1000} = 0.001~\text{s} = 1~\text{ms}
+\]
+
+The number of samples per bit is
+\[
+N = \frac{f_s}{R_b} = \frac{200000}{1000} = 200
+\]
+
+The theoretical energy per bit for BPSK is
+\[
+E_b = \frac{A^2 T_b}{2}
+\]
+Since \(A = 1\) V and \(T_b = 0.001\) s,
+\[
+E_b = \frac{(1)^2 \times 0.001}{2} = 0.0005~\text{J}
+\]
+
+The null-to-null bandwidth of BPSK is
+\[
+BW = 2R_b = 2 \times 1000 = 2000~\text{Hz}
+\]
+
+The first spectral null frequencies are
+\[
+f_{\text{lower null}} = f_c - R_b = 15000 - 1000 = 14000~\text{Hz}
+\]
+\[
+f_{\text{upper null}} = f_c + R_b = 15000 + 1000 = 16000~\text{Hz}
+\]
+
+These values are important because they define the expected frequency-domain shape of the transmitted BPSK signal and help validate the FFT and PSD plots.
+
+\section{Discussion}
+The assigned parameter set corresponds to a practical low-data-rate industrial monitoring link, where reliable transmission is more important than very high speed. 
+The presence of a mild low-pass channel makes the problem more realistic because real industrial links often introduce slight distortion in addition to random noise.
+
+Since both correlator and matched filter receivers are assigned, this batch provides a good \\opportunity to compare the two detection methods and verify their equivalence in decision \\making. 
+The BER and capacity results obtained later in the report will therefore reflect both \\theoretical understanding and practical simulation performance.
