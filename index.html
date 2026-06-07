@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Industrial Sensor Monitoring Communication (ISMC) - An academic ECE project on BPSK communication for industrial sensor monitoring." />
+  <title>ISMC | Industrial Sensor Monitoring Communication</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-wave bg-wave-1"></div>
+  <div class="bg-wave bg-wave-2"></div>
+
+  <header class="header" id="top">
+    <nav class="nav container">
+      <a class="brand" href="#top" aria-label="ISMC home">
+        <span class="brand-mark">IS</span>
+        <span class="brand-text">ISMC</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#overview" class="nav-link">Overview</a></li>
+        <li><a href="#abstract" class="nav-link">Abstract</a></li>
+        <li><a href="#problem" class="nav-link">Problem</a></li>
+        <li><a href="#model" class="nav-link">Model</a></li>
+        <li><a href="#modules" class="nav-link">Modules</a></li>
+        <li><a href="#tools" class="nav-link">Tools</a></li>
+        <li><a href="#run" class="nav-link">Run</a></li>
+        <li><a href="#repo" class="nav-link">Repository</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero container">
+      <div class="hero-content reveal">
+        <p class="eyebrow">ECE • Communication Systems • Signal Processing</p>
+        <h1>Industrial Sensor Monitoring Communication</h1>
+        <p class="hero-text">
+          ISMC is an academic BPSK-based digital communication project that shows how industrial sensor data can be transmitted,
+          received, filtered, and analyzed through a noisy channel using core communication theory.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#repo" class="btn btn-primary">View Repository</a>
+          <a href="#overview" class="btn btn-secondary">Explore Project</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-value">BPSK</span>
+            <span class="stat-label">Digital Modulation</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">AWGN</span>
+            <span class="stat-label">Channel Model</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">BER</span>
+            <span class="stat-label">Performance Metric</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="oscilloscope">
+          <div class="scope-header">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="scope-screen">
+            <svg viewBox="0 0 700 380" class="wave-svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="waveGlow" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#00ffff" />
+                  <stop offset="50%" stop-color="#2ecc71" />
+                  <stop offset="100%" stop-color="#00bcd4" />
+                </linearGradient>
+              </defs>
+              <g class="grid-lines">
+                <path d="M0 63 H700M0 126 H700M0 190 H700M0 253 H700M0 316 H700" />
+                <path d="M70 0 V380M140 0 V380M210 0 V380M280 0 V380M350 0 V380M420 0 V380M490 0 V380M560 0 V380M630 0 V380" />
+              </g>
+              <path class="wave-1" d="M0 190 C70 80, 140 80, 210 190 S350 300, 420 190 S560 80, 630 190 S700 300, 700 190" />
+              <path class="wave-2" d="M0 250 L70 250 L70 130 L140 130 L140 250 L210 250 L210 95 L280 95 L280 250 L350 250 L350 170 L420 170 L420 250 L490 250 L490 110 L560 110 L560 250 L630 250 L630 145 L700 145" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="section container reveal" id="overview">
+      <div class="section-heading">
+        <p class="section-kicker">Project overview</p>
+        <h2>Digital communication for industrial sensing</h2>
+      </div>
+      <div class="card-grid">
+        <article class="info-card">
+          <h3>Academic focus</h3>
+          <p>Designed for Mathematics for Communication Systems, with emphasis on modulation, channel effects, spectrum, and receiver analysis.</p>
+        </article>
+        <article class="info-card">
+          <h3>Project goal</h3>
+          <p>Model sensor information as binary data, transmit it using BPSK, recover it with matched filtering, and evaluate the result using BER and capacity.</p>
+        </article>
+        <article class="info-card">
+          <h3>Report ready</h3>
+          <p>Built to support GitHub Pages presentation with clean structure, professional visuals, and links suitable for academic submission.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt-section" id="abstract">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Abstract</p>
+          <h2>What the project demonstrates</h2>
+        </div>
+        <div class="content-panel">
+          <p>
+            ISMC models an industrial sensor communication chain where sensor information is encoded into binary symbols,
+            transmitted over a noisy channel, and reconstructed at the receiver. The implementation uses BPSK because it is
+            simple, reliable, and widely used in digital communication fundamentals.
+          </p>
+          <p>
+            The project also studies key metrics such as bit energy, transmitted waveform, received waveform, magnitude spectrum,
+            power spectral density, matched filter output, BER variation with SNR, and Shannon capacity behavior. This makes the work
+            useful for understanding both the theory and practical simulation of communication systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container reveal" id="problem">
+      <div class="section-heading">
+        <p class="section-kicker">Problem statement</p>
+        <h2>Reliable sensor data transfer in noise</h2>
+      </div>
+      <div class="two-col">
+        <div class="content-panel">
+          <h3>Input</h3>
+          <ul class="clean-list">
+            <li>Binary information from industrial sensor data.</li>
+            <li>System parameters for modulation and channel simulation.</li>
+            <li>SNR values for performance testing.</li>
+          </ul>
+        </div>
+        <div class="content-panel">
+          <h3>Processing and output</h3>
+          <ul class="clean-list">
+            <li>BPSK symbol generation and waveform construction.</li>
+            <li>AWGN channel distortion and receiver-side recovery.</li>
+            <li>BER, spectrum, PSD, matched filter, and capacity analysis.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt-section" id="model">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Communication model</p>
+          <h2>Fixed flow used in the project</h2>
+        </div>
+        <div class="flow-grid">
+          <div class="flow-card"><span>01</span><h3>Sensor data</h3><p>Industrial measurement is represented as binary information.</p></div>
+          <div class="flow-card"><span>02</span><h3>BPSK modulation</h3><p>Bits are converted into phase-shifted symbols for transmission.</p></div>
+          <div class="flow-card"><span>03</span><h3>Noisy channel</h3><p>AWGN is applied to simulate real communication conditions.</p></div>
+          <div class="flow-card"><span>04</span><h3>Receiver</h3><p>Matched filtering and detection recover the data at the output.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container reveal" id="modules">
+      <div class="section-heading">
+        <p class="section-kicker">Main components</p>
+        <h2>Code structure used in the repository</h2>
+      </div>
+      <div class="module-grid">
+        <article class="module-card">
+          <h3>Python modules</h3>
+          <ul class="clean-list">
+            <li><code>main.py</code> — simulation entry point.</li>
+            <li><code>config.py</code> — system parameters.</li>
+            <li><code>core/bpsk.py</code> — BPSK generation.</li>
+            <li><code>core/channel.py</code> — channel effects.</li>
+            <li><code>core/spectrum.py</code> — spectral analysis.</li>
+            <li><code>core/ber.py</code> — BER calculation.</li>
+            <li><code>core/capacity.py</code> — channel capacity.</li>
+          </ul>
+        </article>
+
+        <article class="module-card">
+          <h3>Report structure</h3>
+          <ul class="clean-list">
+            <li><code>report/main.tex</code> — main LaTeX file.</li>
+            <li><code>report/frontmatter/</code> — title, abstract, declaration, and acknowledgement.</li>
+            <li><code>report/chapter/</code> — chapter-wise content.</li>
+            <li><code>report/appendix/</code> — supplementary material.</li>
+            <li><code>report/plots/</code> — figures used in the report.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section alt-section" id="tools">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Tools and technologies</p>
+          <h2>Stack used for development</h2>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">LaTeX</span>
+          <span class="tag">XeLaTeX</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container reveal" id="run">
+      <div class="section-heading">
+        <p class="section-kicker">How to run</p>
+        <h2>Project execution flow</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span>1</span>
+          <p>Clone the repository and open the project folder.</p>
+        </div>
+        <div class="step">
+          <span>2</span>
+          <p>Install dependencies and run <code>main.py</code> to generate plots.</p>
+        </div>
+        <div class="step">
+          <span>3</span>
+          <p>Open the <code>report/</code> folder and compile <code>main.tex</code> with XeLaTeX.</p>
+        </div>
+        <div class="step">
+          <span>4</span>
+          <p>Review the final PDF and figures for academic submission.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt-section" id="repo">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="section-kicker">Repository</p>
+          <h2>Project access and links</h2>
+        </div>
+        <div class="repo-card">
+          <div>
+            <h3>ISMC GitHub repository</h3>
+            <p>Repository link can be placed here for GitHub Pages visitors, project reviewers, and academic evaluation.</p>
+          </div>
+          <a class="btn btn-primary" href="https://github.com/TAditya007/MFCS---Project-ISMC" target="_blank" rel="noopener noreferrer">Open GitHub Repo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>Industrial Sensor Monitoring Communication (ISMC) • ECE MFCS</p>
+      <p>Batch 9 • Section 15 • Academic Year 2025-2026</p>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="./assets/script.js"></script>
+</body>
+</html>
